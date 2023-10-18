@@ -1,24 +1,41 @@
-# Assignment-2
+# Snowflake Machine Learning Project
 
-## Introduction
+This project consists of two parts, each involving the use of Snowflake and Streamlit to build and test various machine learning applications.
 
-This project aims to leverage the power of Snowflake and machine learning to predict ad impressions and perform anomaly detection. 
+## Part 1
 
-### Part 1
+In this part, you will complete a tutorial and build a Streamlit app with two key use cases: forecasting and anomaly detection.
 
-#### a) Complete the Tutorial
+### Tutorial Completion
+- Follow the tutorial: [Predict Ad Impressions with ML-Powered Analysis](https://quickstarts.snowflake.com/guide/predict_ad_impressions_with_ml_powered_analysis/index.html) and make sure to submit your work.
 
-To understand the foundational concepts and set up the Snowflake environment, follow the comprehensive tutorial provided by Snowflake: [Predict Ad Impressions with ML-Powered Analysis](https://quickstarts.snowflake.com/guide/predict_ad_impressions_with_ml_powered_analysis/index.html#0).
+### Streamlit App Development
+- Build a Streamlit app that allows you to interact with the data and perform two use cases: forecasting and anomaly detection.
 
-[![Tutorial](https://img.shields.io/badge/Tutorial-Read%20Now-blue)](https://quickstarts.snowflake.com/guide/predict_ad_impressions_with_ml_powered_analysis/index.html#0)
+## Part 2
 
-#### b) Build a Streamlit App
+This part involves testing three different machine learning applications that we discussed in class.
 
-To interact with the data and explore two key use cases (forecasting and anomaly detection), we have created a Streamlit application. The Streamlit app allows you to visualize and analyze the data seamlessly.
+### Customer Lifetime Value Computation
+- Implementation details can be found in the following resources:
+  - [Medium Article Part 1](https://medium.com/snowflake/ml-on-snowflake-at-scale-with-snowpark-python-and-xgboost-c329c30c2feb)
+  - [Medium Article Part 2](https://medium.com/snowflake/ml-on-snowflake-at-scale-with-snowpark-python-and-snowpark-ml-part-2-6491d72a9903)
+  - [GitHub Repository](https://github.com/Snowflake-Labs/snowpark-python-demos/tree/main/tpcds-customer-lifetime-value)
 
-Follow these steps to set up and run the Streamlit app:
+### Predict Customer Spend
+- Implementation details can be found in the [GitHub Repository](https://github.com/Snowflake-Labs/snowpark-python-demos/tree/main/Predict%20Customer%20Spend)
 
-1. Clone this repository to your local machine:
+### ROI Prediction
+- Implementation details can be found in the [GitHub Repository](https://github.com/Snowflake-Labs/snowpark-python-demos/tree/main/Advertising-Spend-ROI-Prediction)
 
-```bash
-   git clone https://github.com/yourusername/yourproject.git
+### Multipage Streamlit App
+- Combine all three functions (Customer Lifetime Value Computation, Predict Customer Spend, and ROI Prediction) into a single Streamlit app with multiple pages.
+
+## How to Run the Streamlit App
+- Make sure to install the necessary dependencies for your Streamlit app. You can use `pip` to install them.
+- Run the Streamlit app using the following command:
+  ```bash
+  streamlit run your_app_name.py
+  ```
+
+Feel free to reach out if you have any questions or need further assistance. Good luck with your project!
