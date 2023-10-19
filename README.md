@@ -2,7 +2,7 @@
 
 This project consists of two parts, each involving the use of Snowflake and Streamlit to build and test various machine learning applications.
 
-## Part 1
+## Task 1
 
 In this part, you will complete a tutorial and build a Streamlit app with two key use cases: forecasting and anomaly detection.
 
@@ -12,7 +12,7 @@ In this part, you will complete a tutorial and build a Streamlit app with two ke
 ### Streamlit App Development
 - Build a Streamlit app that allows you to interact with the data and perform two use cases: forecasting and anomaly detection.
 
-## Part 2
+## Task 2
 
 This part involves testing three different machine learning applications that we discussed in class.
 
