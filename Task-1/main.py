@@ -160,6 +160,10 @@ def main():
     conn = snowflake.connector.connect(**conn_params)
     cur = conn.cursor()
 
+    #title of the app
+    st.header("Ad Impressions Predictor")
+    st.divider()
+
     # Define available operations in a list
     operations = ["Please Select from the following options", "Setup Environment", "Generate Data", "View Data", "Forecast Data", "Anomaly Detection", "Clean Up Environment"]
 
