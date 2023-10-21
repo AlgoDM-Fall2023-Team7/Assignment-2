@@ -4,19 +4,23 @@ import snowflake.connector
 import pandas as pd
 import plotly.graph_objects as go
 import os
-import dotenv
+import json  # Added JSON library
 
-# Load environment variables from .env file using python-dotenv
-dotenv.load_dotenv()
+# Load connection parameters from the JSON file
+#with open("connection.json") as config_file:
+    #data = json.load(config_file)
+    #SNOWFLAKE_ACCOUNT = data['user']
+    #SNOWFLAKE_PASSWORD = data['password']
+    #SNOWFLAKE_USER = data['account']
 
 # Use the loaded environment variables for Snowflake connection
 conn_params = {
-    'account': os.environ.get("SNOWFLAKE_ACCOUNT"),
-    'user': os.environ.get("SNOWFLAKE_USER"),
-    'password': os.environ.get("SNOWFLAKE_PASSWORD"),
-    'warehouse': os.environ.get("SNOWFLAKE_WAREHOUSE"),
-    'database': os.environ.get("SNOWFLAKE_DATABASE"),
-    'schema': os.environ.get("SNOWFLAKE_SCHEMA"),
+    'account': 'objvava-okb00266',
+    'user': "aishwaryasvs",
+    'password': "$4K!T9fc_B3_8yb",
+    'warehouse': "AD_FORECAST_DEMO_WH",
+    'database': "AD_FORECAST_DEMO",
+    'schema': "DEMO",
 }
 
 # Define functions for various operations
