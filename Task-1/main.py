@@ -3,10 +3,10 @@ import streamlit as st
 import snowflake.connector
 import pandas as pd
 import plotly.graph_objects as go
-import dotenv
 import os
+import dotenv
 
-# Load environment variables from .env file
+# Load environment variables from .env file using python-dotenv
 dotenv.load_dotenv()
 
 # Use the loaded environment variables for Snowflake connection
@@ -148,7 +148,6 @@ def anomaly_detection(cur):
     st.write(combined_df)
     st.write("Anomaly detection complete.")
 
-
 def clean_up_environment(cur):
     # Clean up the Snowflake environment
     cur.execute("USE ROLE ACCOUNTADMIN")
@@ -186,11 +185,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-
-
-
-
-
-
