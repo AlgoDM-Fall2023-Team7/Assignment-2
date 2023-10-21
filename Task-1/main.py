@@ -29,6 +29,23 @@ def setup_environment(cur):
     cur.execute("CREATE SCHEMA AD_FORECAST_DEMO.DEMO")
     st.write("Environment setup complete.")
 
+def generate_data(cur):
+    # Generate and populate the daily_impressions table
+    cur.execute("CREATE TABLE DEMO.daily_impressions(day TIMESTAMP, impression_count INTEGER)")
+    cur.execute("INSERT INTO DEMO.daily_impressions SELECT DATEADD(DAY, SEQ4(), '2022-09-01'::TIMESTAMP) AS day, ABS(ROUND(NORMAL(35000, 7000, RANDOM(4)))) AS impression_count FROM TABLE(GENERATOR(ROWCOUNT=>96))")
+    cur.execute("""
+        UPDATE DEMO.daily_impressions
+        SET impression_count = (
+            (CASE
+                WHEN DAYNAME(day) IN ('Sat', 'Sun') THEN 0.7
+                WHEN DAYNAME(day) = 'Fri' THEN 0.9
+                ELSE 1
+            END) *
+            (impression_count + (DATEDIFF(DAY, '2022-09-01'::TIMESTAMP, day) * 120))
+        )
+    """)
+    st.write("Data generation complete.")
+
 def clean_up_environment(cur):
     # Clean up the Snowflake environment
     cur.execute("USE ROLE ACCOUNTADMIN")
