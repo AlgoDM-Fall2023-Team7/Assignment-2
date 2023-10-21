@@ -4,6 +4,7 @@ import snowflake.connector
 import pandas as pd
 import plotly.graph_objects as go
 import dotenv
+import os
 
 # Load environment variables from .env file
 dotenv.load_dotenv()
@@ -17,6 +18,23 @@ conn_params = {
     'database': os.environ.get("SNOWFLAKE_DATABASE"),
     'schema': os.environ.get("SNOWFLAKE_SCHEMA"),
 }
+
+# Define functions for various operations
+def setup_environment(cur):
+    # Set up the Snowflake environment
+    cur.execute("USE ROLE ACCOUNTADMIN")
+    cur.execute("CREATE WAREHOUSE AD_FORECAST_DEMO_WH WITH WAREHOUSE_SIZE='XSmall' STATEMENT_TIMEOUT_IN_SECONDS=600 STATEMENT_QUEUED_TIMEOUT_IN_SECONDS=15")
+    cur.execute("USE WAREHOUSE AD_FORECAST_DEMO_WH")
+    cur.execute("CREATE DATABASE AD_FORECAST_DEMO")
+    cur.execute("CREATE SCHEMA AD_FORECAST_DEMO.DEMO")
+    st.write("Environment setup complete.")
+
+def clean_up_environment(cur):
+    # Clean up the Snowflake environment
+    cur.execute("USE ROLE ACCOUNTADMIN")
+    cur.execute("DROP DATABASE IF EXISTS AD_FORECAST_DEMO")
+    cur.execute("DROP WAREHOUSE IF EXISTS AD_FORECAST_DEMO_WH")
+    st.write("Environment cleanup complete.")
 
 def main():
     # Main function to run the Streamlit app
