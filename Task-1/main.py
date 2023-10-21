@@ -46,6 +46,20 @@ def generate_data(cur):
     """)
     st.write("Data generation complete.")
 
+def view_data(cur):
+    # View the data in the daily_impressions table and create a line chart
+    cur.execute("SELECT * FROM DEMO.daily_impressions")
+    data = cur.fetchall()
+    data_df = pd.DataFrame(data, columns=['day', 'impression_count'])
+    st.write(data_df)
+
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=data_df['day'], y=data_df['impression_count'], mode='lines', name='Impression Count'))
+    fig.update_layout(title="Ad Volume Prediction")
+    fig.update_xaxes(title_text="Day")
+    fig.update_yaxes(title_text="Impression Count")
+    st.plotly_chart(fig, use_container_width=True)
+
 def clean_up_environment(cur):
     # Clean up the Snowflake environment
     cur.execute("USE ROLE ACCOUNTADMIN")
