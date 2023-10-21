@@ -3,3 +3,4 @@ snowflake-connector-python
 pandas
 python-dotenv
 streamlit
+plotly
