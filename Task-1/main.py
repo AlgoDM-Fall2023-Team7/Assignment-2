@@ -4,6 +4,9 @@ import pandas as pd
 import plotly.graph_objects as go
 import dotenv
 
+# Load environment variables from .env file
+dotenv.load_dotenv()
+
 # Use the loaded environment variables
 conn_params = {
     'account': os.environ.get("SNOWFLAKE_ACCOUNT"),
