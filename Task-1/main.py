@@ -60,6 +60,35 @@ def view_data(cur):
     fig.update_yaxes(title_text="Impression Count")
     st.plotly_chart(fig, use_container_width=True)
 
+def forecast_data(cur):
+    # Create a forecast for daily impressions and display it with a line chart
+    cur.execute("""
+        CREATE OR REPLACE SNOWFLAKE.ML.FORECAST impressions_forecast(INPUT_DATA =>
+            SYSTEM$REFERENCE('TABLE', 'DEMO.daily_impressions'),
+            TIMESTAMP_COLNAME => 'day',
+            TARGET_COLNAME => 'impression_count'
+        )
+    """)
+    cur.execute("CALL impressions_forecast!FORECAST(FORECASTING_PERIODS => 14)")
+    cur.execute("""
+        SELECT day AS ts, impression_count AS actual, NULL AS forecast, NULL AS lower_bound, NULL AS upper_bound
+        FROM DEMO.daily_impressions
+        UNION ALL
+        SELECT ts, NULL AS actual, forecast, lower_bound, upper_bound
+        FROM TABLE(RESULT_SCAN(-1))
+    """)
+    forecast_data = cur.fetchall()
+    forecast_df = pd.DataFrame(forecast_data, columns=['ts', 'actual', 'forecast', 'lower_bound', 'upper_bound'])
+    st.write(forecast_df)
+
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=forecast_df['ts'], y=forecast_df['actual'], mode='lines', name='Actual', line=dict(color='blue')))
+    fig.add_trace(go.Scatter(x=forecast_df['ts'], y=forecast_df['forecast'], mode='lines', name='Forecast', line=dict(color='green')))
+    fig.update_layout(title="Forecast vs. Actual")
+    fig.update_xaxes(title_text="Date")
+    fig.update_yaxes(title_text="Impression Count")
+    st.plotly_chart(fig)
+
 def clean_up_environment(cur):
     # Clean up the Snowflake environment
     cur.execute("USE ROLE ACCOUNTADMIN")
