@@ -89,6 +89,66 @@ def forecast_data(cur):
     fig.update_yaxes(title_text="Impression Count")
     st.plotly_chart(fig)
 
+def anomaly_detection(cur):
+    # Build model to detect anomalies
+    cur.execute("""
+        CREATE OR REPLACE SNOWFLAKE.ML.ANOMALY_DETECTION impression_anomaly_detector(
+          INPUT_DATA => SYSTEM$REFERENCE('TABLE', 'daily_impressions'),
+          TIMESTAMP_COLNAME => 'day',
+          TARGET_COLNAME => 'impression_count',
+          LABEL_COLNAME => ''
+        )
+    """)
+
+    # Check if a potential new day would be an outlier (Example 1)
+    cur.execute("""
+        CALL impression_anomaly_detector!DETECT_ANOMALIES(
+          INPUT_DATA => SYSTEM$QUERY_REFERENCE('select ''2022-12-06''::timestamp as day, 12000 as impressions'),
+          TIMESTAMP_COLNAME =>'day',
+          TARGET_COLNAME => 'impressions'
+        )
+    """)
+
+    # Get the results of anomaly detection
+    cur.execute("SELECT * FROM TABLE(RESULT_SCAN(-1))")
+    anomaly_data = cur.fetchall()
+    anomaly_df = pd.DataFrame(anomaly_data, columns=['TS', 'Y', 'FORECAST', 'LOWER_BOUND', 'UPPER_BOUND', 'IS_ANOMALY', 'PERCENTILE', 'DISTANCE'])
+
+    # Check a way too high row (Example 2)
+    cur.execute("""
+        CALL impression_anomaly_detector!DETECT_ANOMALIES(
+          INPUT_DATA => SYSTEM$QUERY_REFERENCE('select ''2022-12-06''::timestamp as day, 120000 as impressions'),
+          TIMESTAMP_COLNAME =>'day',
+          TARGET_COLNAME => 'impressions'
+        )
+    """)
+
+    # Get the results of anomaly detection for the second example
+    cur.execute("SELECT * FROM TABLE(RESULT_SCAN(-1))")
+    example2_data = cur.fetchall()
+    example2_df = pd.DataFrame(example2_data, columns=['TS', 'Y', 'FORECAST', 'LOWER_BOUND', 'UPPER_BOUND', 'IS_ANOMALY', 'PERCENTILE', 'DISTANCE'])
+
+    # Try a reasonable value (Example 3)
+    cur.execute("""
+        CALL impression_anomaly_detector!DETECT_ANOMALIES(
+          INPUT_DATA => SYSTEM$QUERY_REFERENCE('select ''2022-12-06''::timestamp as day, 60000 as impressions'),
+          TIMESTAMP_COLNAME =>'day',
+          TARGET_COLNAME => 'impressions'
+        )
+    """)
+
+    # Get the results of anomaly detection for the third example
+    cur.execute("SELECT * FROM TABLE(RESULT_SCAN(-1))")
+    example3_data = cur.fetchall()
+    example3_df = pd.DataFrame(example3_data, columns=['TS', 'Y', 'FORECAST', 'LOWER_BOUND', 'UPPER_BOUND', 'IS_ANOMALY', 'PERCENTILE', 'DISTANCE'])
+
+    # Combine all the results into one DataFrame
+    combined_df = pd.concat([anomaly_df, example2_df, example3_df])
+
+    st.write(combined_df)
+    st.write("Anomaly detection complete.")
+
+
 def clean_up_environment(cur):
     # Clean up the Snowflake environment
     cur.execute("USE ROLE ACCOUNTADMIN")
