@@ -2,6 +2,21 @@
 
 This project consists of two parts, each involving the use of Snowflake and Streamlit to build and test various machine learning applications.
 
+## Submission Links
+
+**Task 1 App: Ad Impressions Predictor**
+https://task-1-in6ewmugv5rt3x5r8lq67r.streamlit.app/
+
+**Task 2 App: Customer Metrics Prediction**
+https://assignment-2-test-yttufzhgwwqjdjvtfarmxc.streamlit.app/
+
+**Google Codelab Link** 
+https://codelabs-preview.appspot.com/?file_id=1G6zy6GVnJdvyhx3tLjP9W_2sHjfOwnHGoAcUzwCsQnM#0
+
+**Video Presentation Link**
+https://youtu.be/dZghXmX6DNw
+
+
 ## Task 1
 
 In this part, you will complete a tutorial and build a Streamlit app with two key use cases: forecasting and anomaly detection.
