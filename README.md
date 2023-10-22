@@ -8,7 +8,7 @@ This project consists of two parts, each involving the use of Snowflake and Stre
 
 https://task-1-in6ewmugv5rt3x5r8lq67r.streamlit.app/
 
-**Task 2 App: Customer Metrics Prediction**
+**Task 2 App: Customer Metrics Predictor**
 
 https://assignment-2-test-yttufzhgwwqjdjvtfarmxc.streamlit.app/
 
