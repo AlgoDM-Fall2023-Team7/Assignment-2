@@ -15,9 +15,9 @@ APP_ICON_URL = "https://i.imgur.com/dBDOHH3.png"
 def create_session():
     if "snowpark_session" not in st.session_state:
         session = Session.builder.configs(st.secrets.db_credentials_1).create()
-        session.use_warehouse("SNOWPARK_DEMO_WH")
-        session.use_database("SNOWPARK_ROI_DEMO")
-        session.use_schema("AD_DATA")
+        session.use_warehouse("DASH_L")
+        session.use_database("DASH_DB")
+        session.use_schema("DASH_SCHEMA")
         st.session_state['snowpark_session'] = session
     else:
         session = st.session_state['snowpark_session']
