@@ -65,13 +65,13 @@ if st.button("Predict"):
     print(input_data_df)
 
     # Connect to Snowflake
-    connection = connect(
-        user='JArjun0207',
-        password='Jarjun123',
-        account='grfxvwc-nz59991',
-        warehouse='FE_AND_INFERENCE_WH',
-        database='tpcds_xgboost',
-        schema='demo'
+     connection = connect(
+        user = st.secrets.db_credentials_3.user,
+        password=st.secrets.db_credentials_3.password,
+        account=st.secrets.db_credentials_3.account,
+        warehouse=st.secrets.db_credentials_3.warehouse,
+        database=st.secrets.db_credentials_3.database,
+        schema=st.secrets.db_credentials_3.schema
     )
 
     # Call Snowflake UDF
