@@ -1,6 +1,9 @@
 {
-    "account": "grfxvwc-nz59991",
-    "user": "JArjun0207",
-    "password": "Jarjun123",
-    "warehouse": "COMPUTE_WH"
-  }
+    "account": "fdgujgb-zbb99923",
+    "user": "admteam7",
+    "password": "helloadmteamSeven@1998",
+    "role"      : "ACCOUNTADMIN",
+    "warehouse" : "DASH_L",
+    "database"  : "DASH_DB",
+    "schema"    : "DASH_SCHEMA"
+}
